@@ -1,8 +1,8 @@
 # Changelog
 
-## 0.1.0 — release candidate
+## 0.1.0 — 2026-09-22
 
-Initial policy release, prepared on 2026-09-22. The GitHub release is a draft pending publication review.
+Initial release of the Meta Ads agent policy template.
 
 ### Included
 
@@ -25,4 +25,4 @@ Initial policy release, prepared on 2026-09-22. The GitHub release is a draft pe
 - CLI review is static; live API behavior, runtime command registration, native dry-run, retries, and pagination have not been validated.
 - The official Meta documentation endpoint returned HTTP 429; further Meta requests stopped immediately.
 
-See [the release review](docs/RELEASE_REVIEW.md) for audit scope and publication prerequisites.
+See [the release review](docs/RELEASE_REVIEW.md) for audit scope and verification limits.

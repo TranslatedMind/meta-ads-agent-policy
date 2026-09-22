@@ -35,7 +35,7 @@ The executable is `meta`; similarly named packages are not interchangeable. The 
 
 ### 1. Add the instructions
 
-Download or clone this repository at the version you intend to adopt, then copy `META_ADS_AGENT_RULES.md` into your target project as `AGENTS.md`. Record the policy version in your project so later updates can be reviewed as a diff. If you are reviewing a draft release before its tag is available, pin the reviewed commit instead.
+Download or clone this repository at the version you intend to adopt, then copy `META_ADS_AGENT_RULES.md` into your target project as `AGENTS.md`. Record the policy version in your project so later updates can be reviewed as a diff. For this release, use the `v0.1.0` tag.
 
 The following local example intentionally refuses to replace an existing instruction file. Replace the example project path first:
 
