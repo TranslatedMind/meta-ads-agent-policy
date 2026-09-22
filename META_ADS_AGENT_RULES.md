@@ -1,9 +1,10 @@
 # Agent Rules for Official Meta Ads CLI Automation
 
 > Community template. This is a project policy, not an official Meta document.
-> To adopt it, save it as `AGENTS.md` in your project and provide an approved local wrapper implementing the requirements below.
+> Policy version: 0.1.0. CLI reference: `meta-ads` 1.1.0, statically reviewed on 2026-09-22; live behavior and dry-run support are not validated.
+> To adopt it, save it as `AGENTS.md` in your project. If the required wrapper is missing, the agent must create and locally validate it as described below before proposing live execution.
 > `scripts/meta` and `.meta-profiles/<profile>.env` are example project conventions; adapt these paths consistently if your setup differs. The wrapper and credential files are not included in this document.
-> Confirm command names and dry-run support against the installed CLI version using local documentation or help before enabling execution. If the required wrapper or safeguards are missing, limit work to local analysis and command drafting.
+> Confirm command names and dry-run support against the installed CLI version using local documentation or help before enabling execution. Until the required wrapper and safeguards are ready, limit work to local wrapper implementation, offline validation, analysis, and command drafting.
 
 These rules apply to all agents, MCP servers, scripts, and local workflows that interact with Meta Ads from this workspace.
 
@@ -84,7 +85,7 @@ Allowed variables:
 Rules:
 
 - `.meta-profiles/*.env` and any root `.env` must be ignored by version control.
-- A root `.env` must not be read by the wrapper.
+- Neither the wrapper nor the CLI process it launches may read a root `.env`, discover an ancestor `.env`, or fall back to user-level credentials or configuration. Isolate the child process configuration sources; clearing environment variables alone is not sufficient.
 - Profile files must be regular files owned by the current user with mode `0600`; symlinks are prohibited.
 - Only the selected profile file may be opened. Inherited `ACCESS_TOKEN`, `AD_ACCOUNT_ID`, and `BUSINESS_ID` values must be removed before starting the official CLI.
 - Command-line `--ad-account-id` and `--business-id` overrides are prohibited; IDs must come from the selected profile.
@@ -109,11 +110,28 @@ All Meta Ads CLI calls must pass through one shared local wrapper that controls:
 - circuit breakers
 - output redaction
 
+The wrapper must reject unknown commands and unsupported flags by default. It must also control or disable nested CLI/SDK retries and automatic pagination so a request-volume signal cannot trigger further requests inside the child process. If these guarantees cannot be established, live execution is not approved.
+
 Logs, locks, circuit breakers, and approvals must be isolated by profile. A
 write approval digest must include the selected profile and the exact Meta Ads
 CLI command so approval for one profile cannot be replayed against another.
 
 Multiple agents, MCPs, or scripts must not run independent retry or pacing logic against the same ad account or token.
+
+## Bootstrap a Missing Wrapper
+
+When asked to set up or use Meta Ads automation in a project that adopts this policy, the agent must check whether the approved wrapper exists and meets the requirements. If it is missing, implement it locally; do not stop at telling the human that a wrapper is required. If one already exists, inspect it and make focused local fixes rather than replacing it without review.
+
+The bootstrap sequence is:
+
+1. Inspect local project conventions and available CLI metadata or help without loading real profiles or making network requests. Identify the executable, command surface, and configuration fallback paths. Do not install a similarly named substitute or silently upgrade the CLI.
+2. Implement `scripts/meta` (or the project's documented equivalent) with all required controls: explicit profile selection, isolated configuration, a reviewed command allowlist, exact write approvals, pacing, bounded retries, immediate request-volume stops, redaction, and audit logging. Default to denying operations that are not yet classified or supported.
+3. Implement a local planning mode that renders the proposed operation without dispatching it to Meta. Do not assume the CLI supplies a native dry-run flag.
+4. Validate with temporary synthetic profiles, a fake CLI or mocked transport, and fixtures. Cover missing or multiple profiles, unsafe profile files, inherited configuration, unknown commands and account overrides, unapproved or altered writes, concurrent workers, redaction, rate-limit signals, and ambiguous write outcomes. Tests must not use real tokens or contact Meta.
+5. Review whether the actual CLI/SDK can satisfy the controls, including configuration isolation, internal retries, and automatic pagination. Passing tests against a fake CLI alone does not prove those guarantees. If a required guarantee cannot be established, keep live execution disabled and report the exact gap.
+6. Present the local implementation, validation results, and remaining limitations for human review before enabling it as the approved wrapper. If essential project-specific information is missing, complete independent local work first and ask only for the missing information.
+
+Creating or testing the wrapper does not authorize loading real credentials, provisioning access, making live API calls, or performing a write. Do not ask the human to paste tokens into chat. After the wrapper is approved, live reads still require an authorized task, and writes still require exact operation approval under this policy.
 
 ## Allowed Commands Model
 
@@ -125,7 +143,7 @@ Read commands may run by default when they use the approved wrapper and redact s
 - `meta ads campaign list`
 - `meta ads adset list`
 - `meta ads ad list`
-- `meta ads adcreative list`
+- `meta ads creative list`
 - `meta ads page list`
 - `meta ads dataset list`
 - `meta ads catalog list`
