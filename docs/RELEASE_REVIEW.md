@@ -29,5 +29,5 @@ The policy can be shared as a template with these limits stated. It does not cer
 
 - Confirm that the maintainer has the right to publish the original text and accept future contributions under MIT. This audit does not establish employment, client, or third-party ownership obligations.
 - Review the draft release and make a separate decision to publish it and change repository visibility. Preparing this candidate does not make the repository public.
-- At public launch, enable and verify a monitored private vulnerability reporting channel as described in [SECURITY.md](../SECURITY.md).
+- Keep GitHub issues enabled for feedback. [SECURITY.md](../SECURITY.md) describes a simple reporting process using synthetic examples; no separate private reporting channel is required.
 - If files, history, or release assets change after this review, review those changes and repeat the affected checks before publication.

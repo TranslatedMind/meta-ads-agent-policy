@@ -124,7 +124,7 @@ The rules deliberately require human involvement for write operations and recove
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for focused changes and review expectations, and [SECURITY.md](SECURITY.md) for reporting a potential vulnerability without exposing sensitive details. Maintenance is best effort, with no promised response or remediation time.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for focused changes and review expectations, and [SECURITY.md](SECURITY.md) for reporting problems through GitHub issues using examples without sensitive data. Maintenance is best effort, with no guaranteed response time.
 
 ## Release notes
 

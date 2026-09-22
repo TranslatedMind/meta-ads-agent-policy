@@ -14,7 +14,7 @@ Keep contributions and documentation in English. Prefer small diffs, preserve th
 - Do not include tokens, real account IDs, client data, private URLs, logs containing sensitive information, or credentials in screenshots.
 - Keep new examples independent of live accounts; no live Meta operations are required to contribute.
 - Run `git diff --check` and review the complete diff. When changing an adoption example, verify it locally with temporary files.
-- For a suspected security issue, follow [SECURITY.md](SECURITY.md) instead of posting exploit details in an issue or pull request.
+- For a mistake or safety gap in the instructions, follow the short reporting guide in [SECURITY.md](SECURITY.md).
 
 By submitting a contribution, you agree to license it under this repository's [MIT license](LICENSE) and confirm that you have the right to contribute it under those terms. No separate contributor license agreement is required.
 

@@ -10,7 +10,7 @@ Initial policy release, prepared on 2026-09-22. The GitHub release is a draft pe
 - An adoption guide with a non-overwriting installation example and a wrapper acceptance checklist.
 - An explicit agent workflow to create a missing wrapper locally, test it offline, and present it for approval before live use.
 - A static compatibility review for `meta-ads` 1.1.0, with command evidence and explicit verification limits.
-- Contribution and security reporting guidelines, plus the MIT license for this repository's original template and documentation.
+- Short contribution and issue-reporting guidelines, plus the MIT license for this repository's original template and documentation.
 
 ### Corrected and clarified
 
@@ -24,6 +24,5 @@ Initial policy release, prepared on 2026-09-22. The GitHub release is a draft pe
 - No wrapper, credentials, CLI distribution, or runtime enforcement is included.
 - CLI review is static; live API behavior, runtime command registration, native dry-run, retries, and pagination have not been validated.
 - The official Meta documentation endpoint returned HTTP 429; further Meta requests stopped immediately.
-- Private vulnerability reporting must be configured and verified at public launch.
 
 See [the release review](docs/RELEASE_REVIEW.md) for audit scope and publication prerequisites.
