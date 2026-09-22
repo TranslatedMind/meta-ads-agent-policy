@@ -1,0 +1,7 @@
+# Local credentials and profiles
+.env
+.env.*
+.meta-profiles/
+
+# Local system files
+.DS_Store
